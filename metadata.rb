@@ -1,0 +1,7 @@
+name 'chef-compliance'
+maintainer 'Skyscape Cloud Services'
+maintainer_email 'rcoward@skyscapecloud.com'
+license 'apache2'
+description 'Installs/Configures chef-compliance'
+long_description 'Installs/Configures chef-compliance'
+version '0.1.0'

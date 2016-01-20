@@ -1,0 +1,27 @@
+digraph {
+	compound = "true"
+	newrank = "true"
+	subgraph "root" {
+		"[root] provider.vcd" [label = "provider.vcd", shape = "diamond"]
+		"[root] vcd_dnat.compliance-https" [label = "vcd_dnat.compliance-https", shape = "box"]
+		"[root] vcd_dnat.compliance-ssh" [label = "vcd_dnat.compliance-ssh", shape = "box"]
+		"[root] vcd_firewall_rules.demo-fw" [label = "vcd_firewall_rules.demo-fw", shape = "box"]
+		"[root] vcd_network.mgt_net" [label = "vcd_network.mgt_net", shape = "box"]
+		"[root] vcd_network.test_net" [label = "vcd_network.test_net", shape = "box"]
+		"[root] vcd_snat.mgt-outbound" [label = "vcd_snat.mgt-outbound", shape = "box"]
+		"[root] vcd_snat.test-outbound" [label = "vcd_snat.test-outbound", shape = "box"]
+		"[root] vcd_vapp.compliance" [label = "vcd_vapp.compliance", shape = "box"]
+		"[root] vcd_vapp.testservers" [label = "vcd_vapp.testservers", shape = "box"]
+		"[root] vcd_dnat.compliance-https" -> "[root] provider.vcd"
+		"[root] vcd_dnat.compliance-ssh" -> "[root] provider.vcd"
+		"[root] vcd_firewall_rules.demo-fw" -> "[root] vcd_dnat.compliance-https"
+		"[root] vcd_firewall_rules.demo-fw" -> "[root] vcd_dnat.compliance-ssh"
+		"[root] vcd_network.mgt_net" -> "[root] provider.vcd"
+		"[root] vcd_network.test_net" -> "[root] provider.vcd"
+		"[root] vcd_snat.mgt-outbound" -> "[root] provider.vcd"
+		"[root] vcd_snat.test-outbound" -> "[root] provider.vcd"
+		"[root] vcd_vapp.compliance" -> "[root] vcd_network.mgt_net"
+		"[root] vcd_vapp.testservers" -> "[root] vcd_network.test_net"
+	}
+}
+

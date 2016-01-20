@@ -1,2 +1,4 @@
 # chef-compliance
-chef-compliance cookbook and terraform config
+
+TODO: Enter the cookbook description here.
+

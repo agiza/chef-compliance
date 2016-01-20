@@ -4,8 +4,10 @@ variable "vcd_pass" {}
 variable "ext_ip" {}
 variable "testserver_count" { default = 2 }
 variable "chef_client_version" { default = "12.6.0" }
-variable "root_password" {}
+variable "ssh_user" { default = "vagrant" }
+variable "ssh_password" { default = "vagrant" }
 variable "audit_ip" { default = "10.20.0.152" }
+variable "catalogue" { default = "DevOps" }
 
 # Configure the VMware vCloud Director Provider
 provider "vcd" {
@@ -40,10 +42,10 @@ resource "vcd_network" "test_net" {
 
 resource "vcd_vapp" "compliance" {
     name          = "audit01"
-    catalog_name  = "DevOps"
+    catalog_name  = "${var.catalogue}"
     template_name = "centos71"
-    memory        = 2048
-    cpus          = 1
+    memory        = 4096
+    cpus          = 2
 
     network_name  = "${vcd_network.mgt_net.name}"
     ip = "${var.audit_ip}"
@@ -57,15 +59,15 @@ resource "vcd_vapp" "compliance" {
         version = "${var.chef_client_version}"
         connection {
             host = "${var.ext_ip}"
-            user = "vagrant"
-            password = "${var.root_password}"
+            user = "${var.ssh_user}"
+            password = "${var.ssh_password}"
         }
     }
 }
 
 resource "vcd_vapp" "testservers" {
     name          = "${format("test%02d", count.index + 1)}"
-    catalog_name  = "DevOps"
+    catalog_name  = "${var.catalogue}"
     template_name = "centos71"
     memory        = 512
     cpus          = 1
